@@ -94,17 +94,18 @@ export class HomePage {
   }
 
   onLogin() {
-    this.auth.userLogin(this.loginForm.value).subscribe({
-      next: (success) => {
-        console.log(success);
-        this.routes.navigate(['./dashboard']);
-      },
-      error: (err: any) => {
-        console.log(err.error)
-        this.errortext = err.error;
-        this.setOpen(true);
-      }
-    })
+    this.routes.navigate(['./dashboard']);
+    // this.auth.userLogin(this.loginForm.value).subscribe({
+    //   next: (success) => {
+    //     console.log(success);
+    //     this.routes.navigate(['./dashboard']);
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err.error)
+    //     this.errortext = err.error;
+    //     this.setOpen(true);
+    //   }
+    // })
   }
 
   onSignup() {

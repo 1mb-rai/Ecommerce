@@ -1,17 +1,35 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>Dashboard</ion-title>
     <ion-buttons slot="start">
       <ion-back-button default-href="#"></ion-back-button>
     </ion-buttons>
-    <ion-title>Back Button</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="landing" (click)="setTabName('tab1')">
+        <ion-icon [name]="tabNames.tab1"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button tab="categories" (click)="setTabName('tab2')">
+        <ion-icon [name]="tabNames.tab2"></ion-icon>
+        Categories
+      </ion-tab-button>
+      <ion-tab-button tab="notifications" (click)="setTabName('tab3')">
+        <ion-icon [name]="tabNames.tab3"></ion-icon>
+        Notifications
+      </ion-tab-button>
+      <ion-tab-button tab="account" (click)="setTabName('tab4')">
+        <ion-icon [name]="tabNames.tab4"></ion-icon>
+        Account
+      </ion-tab-button>
+      <ion-tab-button tab="cart" (click)="setTabName('tab5')">
+        <ion-icon [name]="tabNames.tab5"></ion-icon>
+        Cart
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>
