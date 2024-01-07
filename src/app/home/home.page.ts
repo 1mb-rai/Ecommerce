@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   IonHeader,
@@ -19,9 +20,11 @@ import {
   IonInput,
   IonButton,
   IonSegment,
-  IonSegmentButton
+  IonSegmentButton,
+  IonToast
 } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -47,7 +50,9 @@ import { environment } from 'src/environments/environment';
     IonInput,
     IonButton,
     IonSegment,
-    IonSegmentButton
+    IonSegmentButton,
+    ReactiveFormsModule,
+    IonToast
   ],
 })
 export class HomePage {
@@ -55,7 +60,29 @@ export class HomePage {
   appName = environment.appName;
   isOpen = false;
   selectedTab = 'tab1'
-  constructor(private routes: Router) { }
+
+  loginForm = new FormGroup({
+    email: new FormControl<string>(''),
+    password: new FormControl<string>(''),
+  });
+
+  signupForm = new FormGroup({
+    email: new FormControl<string>(''),
+    username: new FormControl<string>(''),
+    password: new FormControl<string>(''),
+    fullname: new FormControl<string>(''),
+    phone: new FormControl<string>(''),
+    address: new FormGroup({
+      city: new FormControl<string>(''),
+      street: new FormControl<string>(''),
+      number: new FormControl<number | null>(null),
+      zipcode: new FormControl<number | null>(null),
+    })
+  });
+
+  isToastOpen = false;
+  errortext = '';
+  constructor(private routes: Router, private auth: AuthService) { }
 
   presentPopover(e: Event) {
     this.popover.event = e;
@@ -67,10 +94,34 @@ export class HomePage {
   }
 
   onLogin() {
-    this.routes.navigate(['./dashboard']);
+    this.auth.userLogin(this.loginForm.value).subscribe({
+      next: (success) => {
+        console.log(success);
+        this.routes.navigate(['./dashboard']);
+      },
+      error: (err: any) => {
+        console.log(err.error)
+        this.errortext = err.error;
+        this.setOpen(true);
+      }
+    })
   }
 
   onSignup() {
-    this.routes.navigate(['./dashboard']);
+    this.auth.userSignup(this.signupForm.value).subscribe({
+      next: (success) => {
+        console.log(success);
+        this.routes.navigate(['./dashboard']);
+      },
+      error: (error) => {
+        this.errortext = error.error;
+        this.setOpen(true);
+        console.log(error);
+      }
+    })
+  }
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 }
