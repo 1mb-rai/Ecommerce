@@ -1,0 +1,75 @@
+<ion-content [fullscreen]="true">
+
+  <div id="container">
+    <ion-card>
+
+      <ion-card-header>
+        <ion-card-title>{{appName}}</ion-card-title>
+        <ion-card-subtitle>
+          <ion-segment [scrollable]="true" [value]="selectedTab">
+            <ion-segment-button value="tab1" (click)="setSelectedSegment($event)">
+              Login
+            </ion-segment-button>
+            <ion-segment-button value="tab2" (click)="setSelectedSegment($event)">
+              Signup
+            </ion-segment-button>
+          </ion-segment>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      @if(selectedTab === 'tab1') {
+      <ion-card-content>
+        <ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-input label="Email" type="email" placeholder="email@domain.com"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Password" type="password"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-list>
+        <ion-button class="btn" expand="block" (click)="onLogin()">Login</ion-button>
+      </ion-card-content>
+      }
+
+      @if(selectedTab === 'tab2') {
+      <ion-card-content>
+        <ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-input label="Email" type="email" placeholder="email@domain.com"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Email" type="email" placeholder="email@domain.com"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Email" type="email" placeholder="email@domain.com"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Password" type="password"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-list>
+        <ion-button class="btn" expand="block" (click)="onSignup()">Signup</ion-button>
+      </ion-card-content>
+      }
+    </ion-card>
+
+    <ion-fab class="fabIcon">
+      <ion-fab-button (click)="presentPopover($event)">
+        <ion-icon name="help-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+  <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+    <ng-template>
+      <ion-content class="ion-padding">
+        Need help!
+        <p>Please contact:- 991955646</p>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+
+</ion-content>
